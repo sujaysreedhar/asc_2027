@@ -1,4 +1,4 @@
-# Subtopic 5 — Stack versions & capabilities (verify items)
+# Subtopic 5: Stack versions & capabilities (verify items)
 
 **Method.** npm registry queries (Nov 4 2026), reading the installed packages' source, font file inspection with fontTools, and 1 search.
 

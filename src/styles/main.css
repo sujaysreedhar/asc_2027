@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Astro Space Camp 2027 — styles
+   Astro Space Camp 2027: styles
    Layer order: tokens → fonts → base → components → sections → motion states
    ========================================================================== */
 
@@ -12,10 +12,10 @@
   --c-line-strong: rgb(163 174 198 / 0.34);
   --c-ink: #eef2fb;
   --c-muted: #a3aec6;
-  --c-ignite: #ff8a1f; /* warm accent — CTAs, countdown, re-entry heat only */
+  --c-ignite: #ff8a1f; /* warm accent: CTAs, countdown, re-entry heat only */
   --c-ignite-hi: #ffad5c;
   --c-ignite-ink: #05070d;
-  --c-telemetry: #7cc4ff; /* cool accent — focus, toggles, data readouts */
+  --c-telemetry: #7cc4ff; /* cool accent: focus, toggles, data readouts */
   --c-heat: #ff4a1c;
 
   --f-display: 'Anek Latin', 'Anek Fallback', system-ui, sans-serif;
@@ -344,7 +344,7 @@ main:focus-visible { outline: none; }
 }
 @media (min-width: 48em) { .hero__credit { display: block; } }
 
-/* Batch toggle — real radio inputs, works without JS */
+/* Batch toggle: real radio inputs, works without JS */
 .batch-toggle { border: 0; margin: 0; padding: 0; min-width: 0; }
 .batch-toggle__legend { padding: 0; margin-bottom: 8px; font-size: 0.8rem; color: var(--c-muted); }
 .batch-toggle__track { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 520px; }
@@ -442,7 +442,7 @@ main:focus-visible { outline: none; }
   .stage { grid-template-columns: 1.05fr 1fr; min-height: min(68vh, 600px); }
   .stage:nth-child(even) .stage__media { order: 2; }
 }
-/* Pinned "rocket stack" layout — only when JS enables it (desktop, motion allowed) */
+/* Pinned "rocket stack" layout, only when JS enables it (desktop, motion allowed) */
 .lbl.is-staged .lbl__pin { grid-template-columns: 140px 1fr; align-items: center; height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h)); }
 .lbl.is-staged .lbl__rail { display: grid; gap: 22px; position: relative; padding-left: 18px; border-left: 1px solid var(--c-line); }
 .lbl.is-staged .lbl__rail li { font: 600 0.82rem/1 var(--f-display); font-stretch: 80%; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-muted); transition: color 0.4s; }

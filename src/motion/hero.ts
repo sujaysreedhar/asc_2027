@@ -24,9 +24,9 @@ export function heroIntro(): gsap.core.Timeline {
 }
 
 /**
- * 'ignite'    — after the countdown: stars appear brightest-first, constellations draw from the
+ * 'ignite'    After the countdown: stars appear brightest-first, constellations draw from the
  *               centre of view outward, the ignition warmth settles into the horizon.
- * 'crossfade' — the poster of the same sky is already on screen (repeat visit, slow network):
+ * 'crossfade' The poster of the same sky is already on screen (repeat visit, slow network):
  *               the live canvas simply fades in over it, fully drawn, so nothing blinks.
  */
 export function skyReveal(sky: Sky, mode: 'ignite' | 'crossfade'): gsap.core.Timeline {

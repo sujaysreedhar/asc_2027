@@ -1,4 +1,4 @@
-# NOTES — assumptions, unverified facts, open items
+# NOTES: assumptions, unverified facts, open items
 
 Read this before launch. Items are ordered by how much they matter to a parent reading the site.
 
@@ -39,7 +39,7 @@ None of these stopped the build. The brief's facts were used and the conflicts a
 - **Featured sky direction:** Batch 1 looks at 172° (Southern Cross and Centaurus); Batch 2 at 130° (the rising full Moon and Scorpius). Change with `batches[].skyViewAzimuth`.
 - **Moon drawn at 2× true size** so it reads on a phone; positions are true.
 - **Bengaluru light dome** drawn faintly toward 287° (WNW), the computed bearing from Kuppam.
-- **Schema.org has no "tentative" event status.** The JSON-LD uses `EventScheduled` and puts "(tentative dates)" in the name plus "TENTATIVE DATES — to be confirmed" in the description. Change it when dates are final.
+- **Schema.org has no "tentative" event status.** The JSON-LD uses `EventScheduled` and puts "(tentative dates)" in the name plus "Tentative dates, to be confirmed" in the description. Change it when dates are final.
 - **`typicalAgeRange` 12–18** is inferred from Grades 7–12.
 - **JSON-LD start/end times** use 09:00 on the first day and 17:00 on the last day (IST) because schema.org needs a time. The real arrival and departure times are unknown (`renderHead` in `src/content/render.ts`).
 - **"About 2 hours by road from Bengaluru"** (Wikipedia) was *not* put on the site, because no number was in the brief. The map is labelled "schematic, not to scale".
@@ -63,7 +63,7 @@ None of these stopped the build. The brief's facts were used and the conflicts a
 | Slow GPU | Frame governor drops to 1× pixel ratio, then hands back to the poster | Observed live in this container |
 | Keyboard | Logical tab order; visible focus; arrow keys switch batch; FAQ Escape returns focus; mobile menu traps focus and Escape closes | Scripted Playwright checks |
 
-### Why Lighthouse mobile is below 90 with the live sky — read this
+### Why Lighthouse mobile is below 90 with the live sky (read this)
 This container has **no GPU**. Chromium renders WebGL through SwiftShader, a software rasteriser, so WebGL context creation, shader linking and every frame run on the CPU. That shows up as main-thread blocking. Evidence that the cost is the software GPU, not the page:
 - Our JavaScript per frame measured **0.3–6 ms** under 4× throttle; the ~140 ms frame tasks are native GL work.
 - The same page with `?nosky` scores **100** (TBT 20 ms).

@@ -1,11 +1,11 @@
 /**
  * ─────────────────────────────────────────────────────────────────────────────
- *  ASTRO SPACE CAMP 2027 — EVERYTHING EDITABLE LIVES IN THIS ONE FILE
+ *  ASTRO SPACE CAMP 2027: EVERYTHING EDITABLE LIVES IN THIS ONE FILE
  * ─────────────────────────────────────────────────────────────────────────────
  *  How to edit (no coding knowledge needed):
  *    • Change text between quotes '…'. Keep the quotes and the comma at the end.
  *    • Dates are 'YYYY-MM-DD'. Times are 'HH:MM' (24-hour, India time).
- *    • `null` means "not decided yet" — the site shows a friendly placeholder.
+ *    • `null` means "not decided yet": the site shows a friendly placeholder.
  *    • Save, then run `npm run build`. The night-sky, itinerary moonrise times,
  *      search-engine data and every date on the page update automatically.
  *  See README.md → "Editing content" for screenshots of where each item appears.
@@ -56,7 +56,7 @@ export const camp = {
     { name: 'SSERD', fullName: 'Society for Space Education Research and Development', role: 'ISRO Space Tutor', url: 'https://sserd.org', logo: null as string | null },
   ],
 
-  /** Keep the existing ASC logo — drop the file in /public/brand and set the path here. */
+  /** Keep the existing ASC logo: drop the file in /public/brand and set the path here. */
   brand: { ascLogo: null as string | null },
 
   format: { residential: true, days: 9, nights: 8 },
@@ -67,7 +67,7 @@ export const camp = {
     { id: 'batch-2', label: 'Batch 2', start: '2027-06-20', end: '2027-06-28', tentative: true, skyViewAzimuth: 130, registerUrl: null },
   ] satisfies Batch[],
 
-  /** Fees are NOT decided. Leave amount: null until they are — the site says "Announcing soon". */
+  /** Fees are NOT decided. Leave amount: null until they are; the site says "Announcing soon". */
   fees: {
     currency: 'INR',
     earlyBird: { amount: null, label: 'Early bird', until: null } as Price,
@@ -81,7 +81,7 @@ export const camp = {
     district: 'Chittoor',
     state: 'Andhra Pradesh',
     country: 'IN',
-    // NOTE: brief says 200-acre; Wikipedia says ~172 acres — see NOTES.md before launch.
+    // NOTE: brief says 200-acre; Wikipedia says ~172 acres. See NOTES.md before launch.
     campusArea: '200-acre campus',
     darkSkies: true,
     latitude: 12.75,
@@ -102,11 +102,11 @@ export const camp = {
   },
 
   /** One line under the hero headline: what the camp actually teaches (it is not only astronomy). */
-  heroSubline: 'They’ll build rockets, design satellites, learn how aircraft fly — and learn to read this sky.',
+  heroSubline: 'They’ll build rockets, design satellites, learn how aircraft fly, and learn to read this sky.',
 
   /**
    * The four subjects, ordered by altitude (the page "ascends" through them).
-   * `activities` are shown as chips — list only things the camp really does.
+   * `activities` are shown as chips: list only things the camp really does.
    */
   disciplines: [
     {
@@ -116,7 +116,7 @@ export const camp = {
       altitudeNote: 'where airliners cruise',
       line: 'How aircraft fly.',
       body: 'Lift, drag, thrust and control: the principles of flight behind every aeroplane, and how engineers design for them.',
-      activities: [] as string[], // e.g. 'Glider build & flight test' — add once the schedule is final
+      activities: [] as string[], // e.g. 'Glider build & flight test'; add once the schedule is final
     },
     {
       key: 'rockets',
@@ -261,7 +261,7 @@ export const camp = {
   links: {
     /** Registration form. While null, "Register" opens WhatsApp with a pre-filled message. */
     register: null as string | null,
-    /** Payment link — shown on batch cards once set. */
+    /** Payment link, shown on batch cards once set. */
     pay: null as string | null,
     /** Newsletter form endpoint (POST, field "email"). While null the form explains sign-up opens soon. */
     newsletterEndpoint: null as string | null,
@@ -272,9 +272,9 @@ export const camp = {
 
   /** Real camp photos only (previous editions). null → labelled placeholder. */
   photos: {
-    learn: { src: null, alt: '', caption: 'Learn stage — classroom session' } as Photo,
-    build: { src: null, alt: '', caption: 'Build stage — rocket assembly' } as Photo,
-    launch: { src: null, alt: '', caption: 'Launch stage — on the pad' } as Photo,
+    learn: { src: null, alt: '', caption: 'Learn stage: classroom session' } as Photo,
+    build: { src: null, alt: '', caption: 'Build stage: rocket assembly' } as Photo,
+    launch: { src: null, alt: '', caption: 'Launch stage: on the pad' } as Photo,
     wall: [
       { src: null, alt: '', caption: 'Rocket launch' },
       { src: null, alt: '', caption: 'Ground station' },
@@ -292,7 +292,7 @@ export const camp = {
 
   site: {
     url: 'https://www.astrospacecamp.com',
-    title: 'Astro Space Camp 2027 — rockets, satellites, aircraft & astronomy | Grades 7–12, Kuppam',
+    title: 'Astro Space Camp 2027: rockets, satellites, aircraft & astronomy | Grades 7–12, Kuppam',
     description:
       'India’s longest-running residential space camp for school students: 9 days of rockets, satellites, aircraft and astronomy at the Agastya campus, Kuppam. Build and launch rockets, design satellite payloads, learn how aircraft fly, track satellites and study the night sky. Grades 7–12.',
     ogImage: '/og.jpg',

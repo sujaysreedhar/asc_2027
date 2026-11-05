@@ -1,6 +1,6 @@
 /**
- * Renders the live sky to still images — the poster fallback (no WebGL, reduced motion,
- * JS off, low-tier devices) and the Open Graph image — so every fallback shows the same
+ * Renders the live sky to still images (the poster fallback for no WebGL, reduced motion,
+ * JS off and low-tier devices, plus the Open Graph image), so every fallback shows the same
  * real sky. Run after any change to dates/azimuths:  npm run build && npm run posters
  * Uses `vite preview` on :4173 (started automatically if not running).
  */
@@ -24,7 +24,7 @@ let server = null
 if (!(await up())) {
   server = spawn('npx', ['vite', 'preview', '--port', '4173', '--strictPort'], { cwd: root, stdio: 'ignore' })
   for (let i = 0; i < 50 && !(await up()); i++) await new Promise((r) => setTimeout(r, 200))
-  if (!(await up())) throw new Error(`render-posters: preview server did not start at ${BASE} — run npm run build first`)
+  if (!(await up())) throw new Error(`render-posters: preview server did not start at ${BASE}. Run npm run build first`)
 }
 
 const configSrc = fs.readFileSync(path.join(root, 'src/content/camp.config.ts'), 'utf8')

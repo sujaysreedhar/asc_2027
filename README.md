@@ -1,4 +1,4 @@
-# Astro Space Camp 2027 — website
+# Astro Space Camp 2027 website
 
 The official site for Astro Space Camp 2027 (Genex Space × SSERD). The hero renders **the real night sky above the Agastya campus, Kuppam, at 21:00 IST on night one** of the selected batch. Star positions come from the HYG catalogue, and Moon and planet positions are computed for the actual dates in the config.
 

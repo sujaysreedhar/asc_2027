@@ -14,7 +14,7 @@ const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'Ju
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const parts = (iso: string) => {
   const [y, m, d] = iso.split('-').map(Number)
-  if (!y || !m || !d) throw new Error(`render: bad date "${iso}" — use YYYY-MM-DD in camp.config.ts`)
+  if (!y || !m || !d) throw new Error(`render: bad date "${iso}". Use YYYY-MM-DD in camp.config.ts`)
   return { y, m, d, wd: WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()] }
 }
 export function formatRange(start: string, end: string): string {
@@ -45,7 +45,7 @@ export function registerHref(camp: Camp, batchId?: string): { href: string; exte
 }
 
 const tentativeBadge = (on: boolean) =>
-  on ? `<span class="badge badge--tentative" title="Dates to be confirmed">Tentative<span class="sr-only"> — dates to be confirmed</span></span>` : ''
+  on ? `<span class="badge badge--tentative" title="Dates to be confirmed">Tentative<span class="sr-only">, dates to be confirmed</span></span>` : ''
 
 const ext = (external: boolean) => (external ? ' target="_blank" rel="noopener"' : '')
 
@@ -62,7 +62,7 @@ function photo(p: Photo, slot: string, extraClass = '', sizes = '(min-width: 800
   // Labelled slot: honest placeholder until real camp photos are supplied (see NOTES.md).
   return `<figure class="photo photo--slot ${extraClass}" data-slot="${esc(slot)}">
     <div class="photo__frame" aria-hidden="true"><span class="photo__cross"></span><span class="photo__tag">Photo slot · ${esc(slot)}</span></div>
-    <figcaption>${esc(p.caption)} <span class="photo__pending">— camp photo to be added</span></figcaption>
+    <figcaption>${esc(p.caption)} <span class="photo__pending">(camp photo to be added)</span></figcaption>
   </figure>`
 }
 
@@ -487,8 +487,8 @@ export function renderHead(camp: Camp, eph: BatchEphemeris[]): string {
     return {
       '@context': 'https://schema.org',
       '@type': 'Event',
-      name: `${camp.name} — ${b.label}${b.tentative ? ' (tentative dates)' : ''}`,
-      description: `${b.tentative ? 'TENTATIVE DATES — to be confirmed by the organisers. ' : ''}Residential ${camp.format.days}-day space camp for students in Grades ${camp.grades.from}–${camp.grades.to}: ${camp.disciplines.map((d) => d.title.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' and $1')}. ${eph[i].summary}`,
+      name: `${camp.name}: ${b.label}${b.tentative ? ' (tentative dates)' : ''}`,
+      description: `${b.tentative ? 'Tentative dates, to be confirmed by the organisers. ' : ''}Residential ${camp.format.days}-day space camp for students in Grades ${camp.grades.from}–${camp.grades.to}: ${camp.disciplines.map((d) => d.title.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' and $1')}. ${eph[i].summary}`,
       startDate: `${b.start}T09:00:00${camp.sky.utcOffset}`,
       endDate: `${b.end}T17:00:00${camp.sky.utcOffset}`,
       // schema.org has no "tentative" status; EventScheduled + explicit description/name is the closest honest encoding.
@@ -523,7 +523,7 @@ export function renderHead(camp: Camp, eph: BatchEphemeris[]): string {
     <link rel="canonical" href="${esc(s.url)}/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="${esc(camp.shortName)}">
-    <meta property="og:title" content="${esc(camp.name)} — the sky your child will see on night one">
+    <meta property="og:title" content="${esc(camp.name)}: the sky your child will see on night one">
     <meta property="og:description" content="${esc(s.description)}">
     <meta property="og:url" content="${esc(s.url)}/">
     <meta property="og:image" content="${esc(og)}">

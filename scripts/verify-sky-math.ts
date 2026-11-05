@@ -63,6 +63,6 @@ for (const [label, date, time] of instants) {
 
 console.log(`\nWorst on-sky error: ${(worst * 3600).toFixed(1)}″ (tolerance ${TOLERANCE_DEG * 3600}″)`)
 if (failures) {
-  console.error(`${failures} position(s) out of tolerance — sky maths is wrong, do not ship.`)
+  console.error(`${failures} position(s) out of tolerance: sky maths is wrong, do not ship.`)
   process.exit(1)
 }

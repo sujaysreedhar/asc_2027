@@ -42,7 +42,7 @@ await p.click('label[for="pick-batch-1"]')
 await p.waitForTimeout(2500)
 await wheelTo(p, 'subjects', -0.02)
 await shot(p, '04-subjects-desktop')
-await wheelTo(p, 'lbl', 0.9)
+await wheelTo(p, 'lbl', 0.55) // Learn stage fully seated, before it drops away
 await shot(p, '05-lbl-desktop')
 await wheelTo(p, 'mission-log', 0.7)
 await shot(p, '06-itinerary-desktop')

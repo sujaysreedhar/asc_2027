@@ -1,4 +1,4 @@
-# Subtopic 4 — The real sky over Kuppam
+# Subtopic 4: The real sky over Kuppam
 
 **Method.** 2 searches, plus downloads from raw.githubusercontent.com (allowed by the network policy) and **computation**: `scripts/verify-sky-math.ts` checks our maths against astronomy-engine, an independent library.
 
@@ -28,7 +28,7 @@ Because steps 2–5 are pure rotations, the whole sky is **one 3×3 matrix** app
 
 ## Q3. What will the sky actually look like on night one? (computed with astronomy-engine)
 
-| | Batch 1 — 27 Apr 2027, 21:00 IST | Batch 2 — 20 Jun 2027, 21:00 IST |
+| | Batch 1: 27 Apr 2027, 21:00 IST | Batch 2: 20 Jun 2027, 21:00 IST |
 |---|---|---|
 | Moon | Below horizon; rises 00:08, 61 % lit | **Up, 98 % lit**, 12° ESE (rose 19:58) |
 | Planets | Mars 72° (mag 0.2), **Jupiter 64° (mag −2.2)**, both WNW | Mars 39°, Jupiter 19°, both W |
