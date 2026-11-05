@@ -49,7 +49,7 @@ Open **`src/content/camp.config.ts`**. Every value is commented. Common edits:
 | Subjects (aircraft, rockets, satellites, astronomy) | `disciplines`, `acrossSubjects` | Title, altitude label, one-liner, description, and `activities` chips (only list real activities) |
 | Testimonials | `testimonials` | Real quotes only; while empty, an invitation to share stories is shown |
 | Newsletter | `links.newsletterEndpoint` | Any endpoint that accepts a POST with an `email` field |
-| Logos | `brand.ascLogo`, `organizers[].logo` | Put files in `public/brand/` (see the README there) |
+| Logos | `brand.ascLogo` (+ `brand.ascLogoSize`), `organizers[].logo` | The ASC logo is `public/brand/asc-logo.svg`. Put organiser logos in `public/brand/` (see the README there) |
 | Photos | `photos.learn/build/launch`, `photos.wall[]` | Put files in `public/photos/`; give each an `alt`, `width` and `height` |
 | Live 3D sky on phones | `sky.liveOnMobile` | `false` serves the still image of the same sky to phones (see NOTES.md §5) |
 

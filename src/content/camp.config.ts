@@ -57,7 +57,11 @@ export const camp = {
   ],
 
   /** Keep the existing ASC logo: drop the file in /public/brand and set the path here. */
-  brand: { ascLogo: null as string | null },
+  brand: {
+    ascLogo: '/brand/asc-logo.svg' as string | null,
+    /** The logo file's own width/height (any units). Lets the browser reserve its space before it loads. */
+    ascLogoSize: { width: 3309, height: 608 },
+  },
 
   format: { residential: true, days: 9, nights: 8 },
   grades: { from: 7, to: 12 },

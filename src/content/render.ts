@@ -66,9 +66,14 @@ function photo(p: Photo, slot: string, extraClass = '', sizes = '(min-width: 800
   </figure>`
 }
 
+function logoImg(camp: Camp, cls: string, alt: string, extra = ''): string {
+  const { width, height } = camp.brand.ascLogoSize
+  return `<img class="${cls}" src="${esc(camp.brand.ascLogo ?? '')}" alt="${esc(alt)}" width="${width}" height="${height}"${extra}>`
+}
+
 function brandMark(camp: Camp): string {
   return camp.brand.ascLogo
-    ? `<img src="${esc(camp.brand.ascLogo)}" alt="${esc(camp.shortName)}" width="140" height="40">`
+    ? `${logoImg(camp, 'brand__logo', camp.shortName)}<span class="brand__year"> ${camp.year}</span>`
     : `<span class="brand__mark" aria-hidden="true"></span><span class="brand__word">Astro Space Camp <span class="brand__year">${camp.year}</span></span>`
 }
 
@@ -111,7 +116,8 @@ function preloader(camp: Camp): string {
   const g = camp.grades
   return `<div class="preloader" data-preloader aria-hidden="true">
   <div class="preloader__inner">
-    <p class="preloader__hud">${esc(camp.name)} · Grades ${g.from}–${g.to} · ${esc(camp.venue.town)}</p>
+    ${camp.brand.ascLogo ? logoImg(camp, 'preloader__logo', '') : ''}
+    <p class="preloader__hud">${camp.brand.ascLogo ? camp.year : esc(camp.name)} · Grades ${g.from}–${g.to} · ${esc(camp.venue.town)}</p>
     <p class="preloader__count"><span class="preloader__t">T</span><span class="preloader__minus">−</span><span class="preloader__num" data-count>10</span></p>
     <div class="preloader__bar"><span data-progress></span></div>
     <p class="preloader__status" data-status>Aligning star catalogue</p>
@@ -459,6 +465,7 @@ function footer(camp: Camp): string {
       <div class="reentry__social"><p class="reentry__label">Follow</p><ul>${socials}</ul></div>
     </div>
     <div class="reentry__base">
+      ${camp.brand.ascLogo ? logoImg(camp, 'reentry__logo', camp.shortName, ' loading="lazy" decoding="async"') : ''}
       <p>© ${camp.year} ${esc(camp.organizers.map((o) => o.name).join(' × '))} · <span class="reentry__clock" data-ist-clock>Kuppam, ${camp.sky.timezoneLabel}</span></p>
       <p id="sky-credits" class="reentry__credits">Sky: stars from the <a class="link" href="https://codeberg.org/astronexus/hyg"${ext(true)}>HYG database</a> (CC BY-SA), constellation lines &amp; Milky Way from <a class="link" href="https://github.com/ofrohn/d3-celestial"${ext(true)}>d3-celestial</a> (BSD-3), Moon &amp; planets via <a class="link" href="https://github.com/cosinekitty/astronomy"${ext(true)}>Astronomy Engine</a> (MIT). Positions computed for ${camp.venue.latitude}° N, ${camp.venue.longitude}° E.</p>
     </div>
