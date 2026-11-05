@@ -1,0 +1,35 @@
+{
+  "name": "astro-space-camp-2027",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Official website for Astro Space Camp 2027 \u2014 Genex Space \u00d7 SSERD",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "sky:data": "node scripts/build-sky-data.mjs",
+    "sky:verify": "node scripts/verify-sky-math.mjs",
+    "fonts": "python3 scripts/subset-fonts.py",
+    "posters": "node scripts/render-posters.mjs",
+    "release": "npm run build && node scripts/render-posters.mjs && vite build"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "lenis": "1.3.27",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/three": "0.187.0",
+    "astronomy-engine": "2.1.19",
+    "d3-geo": "^3.1.1",
+    "sharp": "0.35.5",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

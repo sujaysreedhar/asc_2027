@@ -1,0 +1,6 @@
+node_modules
+dist
+scripts/data/hyg_v37.csv.gz
+research/raw
+*.local
+.DS_Store
