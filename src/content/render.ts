@@ -431,7 +431,7 @@ function batches(camp: Camp): string {
   <div class="batches__head">
     <p class="kicker" data-reveal>Batches &amp; fees</p>
     <h2 class="h2" id="batches-title" data-split>Choose your mission.</h2>
-    <p class="lede" data-reveal>Both batches are tentative until the organisers confirm them. Same programme, different sky.</p>
+    <p class="lede" data-reveal>${camp.batches.some((b) => b.tentative) ? 'Both batches are tentative until the organisers confirm them. ' : 'Both batches are confirmed. '}Same programme, different sky.</p>
   </div>
   <div class="patches">${cards}</div>
   <div class="inclusions" data-reveal>

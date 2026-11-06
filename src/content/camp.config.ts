@@ -78,8 +78,8 @@ export const camp = {
   grades: { from: 7, to: 12 },
 
   batches: [
-    { id: 'batch-1', label: 'Batch 1', start: '2027-04-23', end: '2027-05-01', tentative: true, skyViewAzimuth: 172, registerUrl: null },
-    { id: 'batch-2', label: 'Batch 2', start: '2027-06-25', end: '2027-07-03', tentative: true, skyViewAzimuth: 130, registerUrl: null },
+    { id: 'batch-1', label: 'Batch 1', start: '2027-04-23', end: '2027-05-01', tentative: false, skyViewAzimuth: 172, registerUrl: null },
+    { id: 'batch-2', label: 'Batch 2', start: '2027-06-25', end: '2027-07-03', tentative: false, skyViewAzimuth: 130, registerUrl: null },
   ] satisfies Batch[],
 
   /**
@@ -291,7 +291,7 @@ export const camp = {
     },
     {
       q: 'Are the dates final?',
-      a: 'Not yet. Both batches are tentative and will be confirmed by the organisers. Register your interest and we will message you the moment they are fixed.',
+      a: 'Yes. Both batches are confirmed: nine days and eight nights each. You will find the dates on every batch card on this page, and joining details follow once you register.',
       confirmed: true,
     },
   ] satisfies FaqItem[],

@@ -7,7 +7,7 @@ Read this before launch. Items are ordered by how much they matter to a parent r
 | # | Item | Status | Where to fix |
 |---|------|--------|--------------|
 | 1 | **Fees** | Not decided. Every price shows **TBD** and "Fees announcing soon". No number is published anywhere, including the schema.org data. | `fees` in `src/content/camp.config.ts` |
-| 2 | **Dates** | Set from the client's batch sheet on 6 Nov 2026: Batch 1 **23 Apr – 1 May 2027**, Batch 2 **25 Jun – 3 Jul 2027** (both Fri → Sat, 9 days / 8 nights). Still flagged tentative: a "Tentative" badge appears everywhere dates do, and the JSON-LD name/description say so. Flip `tentative` to `false` once the organisers sign off. | `batches[].start/end`, `batches[].tentative` |
+| 2 | ~~**Dates**~~ | **Confirmed 6 Nov 2026** by the client, from their batch sheet: Batch 1 **23 Apr – 1 May 2027**, Batch 2 **25 Jun – 3 Jul 2027** (both Fri → Sat, 9 days / 8 nights). `tentative` is now `false` on both, so no badge is rendered, the batches lede and the "Are the dates final?" FAQ both read as confirmed, and the JSON-LD carries plain dates. | `batches[].start/end`, `batches[].tentative` |
 | 3 | **WhatsApp +91 81476 19141** | Taken from the brief and **not verified**. Every Register button opens WhatsApp with a pre-filled message until a registration URL exists. | `contact.whatsapp`, `links.register` |
 | 4 | **Organiser logos** (Genex Space, SSERD) | **Missing.** The network policy blocked the organisers' sites, so the footer shows text wordmarks. The **ASC logo is in place** (supplied 5 Nov 2026, `public/brand/asc-logo.svg`): header, countdown, footer and share image. Only Illustrator export clutter was removed (DOCTYPE, an empty layer, a stray 12-unit "™" text element); every shape and colour is unchanged. The favicon is the logo's own crescent and stars on the site's dark background. | Drop files in `public/brand/` and set `organizers[].logo` in the config |
 | 5 | **Camp photos** | **Missing**, for the same reason. 11 labelled "Photo slot" frames say "camp photo to be added". No stock or AI images were used. | `public/photos/` and `photos` in the config |
@@ -66,7 +66,7 @@ intended group sizes before these numbers are used for pricing.
 - **Featured sky direction:** Batch 1 looks at 172° (Southern Cross and Centaurus); Batch 2 at 130° (the rising full Moon and Scorpius). Change with `batches[].skyViewAzimuth`.
 - **Moon drawn at 2× true size** so it reads on a phone; positions are true.
 - **Bengaluru light dome** drawn faintly toward 287° (WNW), the computed bearing from Kuppam.
-- **Schema.org has no "tentative" event status.** The JSON-LD uses `EventScheduled` and puts "(tentative dates)" in the name plus "Tentative dates, to be confirmed" in the description. Change it when dates are final.
+- **Schema.org has no "tentative" event status.** The JSON-LD uses `EventScheduled`. While `batches[].tentative` was true it also appended "(tentative dates)" to the name and prefixed "Tentative dates, to be confirmed" to the description; both are gone now that the dates are confirmed. Setting the flag back to true restores them.
 - **`typicalAgeRange` 12–18** is inferred from Grades 7–12.
 - **JSON-LD start/end times** use 09:00 on the first day and 17:00 on the last day (IST) because schema.org needs a time. The real arrival and departure times are unknown (`renderHead` in `src/content/render.ts`).
 - **"About 2 hours by road from Bengaluru"** (Wikipedia) was *not* put on the site, because no number was in the brief. The map is labelled "schematic, not to scale".
