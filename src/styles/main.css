@@ -656,7 +656,6 @@ main:focus-visible { outline: none; }
 .newsletter__status { margin-top: 10px; font-size: 0.86rem; color: var(--c-muted); min-height: 1.4em; }
 .reentry__social ul { display: flex; gap: 18px; }
 .reentry__base { display: grid; gap: 10px; padding-top: 24px; border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 0.82rem; color: var(--c-muted); }
-.reentry__credits { max-width: 90ch; }
 .reentry__logo { width: 190px; height: auto; margin-bottom: 6px; }
 @media (min-width: 64em) { .reentry__grid { grid-template-columns: 1.3fr 1fr 0.5fr; } }
 

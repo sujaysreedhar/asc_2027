@@ -184,7 +184,7 @@ function hero(camp: Camp, eph: BatchEphemeris[]): string {
     <span class="hero__coords">${Math.abs(camp.venue.latitude).toFixed(2)}° N ${camp.venue.longitude.toFixed(2)}° E · Kuppam</span>
   </p>
   <p class="sr-only" id="sky-summary">Background: the real night sky over the camp. ${summaries}</p>
-  <p class="hero__credit"><span data-sky-mode>Star positions computed for the campus</span> · <a class="link" href="#sky-credits">data</a></p>
+  <p class="hero__credit"><span data-sky-mode>Star positions computed for the campus</span></p>
 </section>`
 }
 
@@ -493,7 +493,6 @@ function footer(camp: Camp): string {
     <div class="reentry__base">
       ${camp.brand.ascLogo ? logoImg(camp, 'reentry__logo', camp.shortName, ' loading="lazy" decoding="async"') : ''}
       <p>© ${camp.year} ${esc(camp.organizers.map((o) => o.name).join(' × '))} · <span class="reentry__clock" data-ist-clock>Kuppam, ${camp.sky.timezoneLabel}</span></p>
-      <p id="sky-credits" class="reentry__credits">Sky: stars from the <a class="link" href="https://codeberg.org/astronexus/hyg"${ext(true)}>HYG database</a> (CC BY-SA), constellation lines &amp; Milky Way from <a class="link" href="https://github.com/ofrohn/d3-celestial"${ext(true)}>d3-celestial</a> (BSD-3), Moon &amp; planets via <a class="link" href="https://github.com/cosinekitty/astronomy"${ext(true)}>Astronomy Engine</a> (MIT). Positions computed for ${camp.venue.latitude}° N, ${camp.venue.longitude}° E.</p>
     </div>
   </div>
 </footer>`

@@ -119,4 +119,9 @@ Part of the cost is **real** on low-end phones, though: evaluating the three.js 
 - Constellation lines and Milky Way contours: d3-celestial, BSD-3-Clause, Olaf Frohn.
 - Ephemeris: Astronomy Engine, MIT (build time only).
 - Fonts: Anek Latin (Ek Type) and Inter, SIL OFL 1.1. Licences are in `public/fonts/`.
-Credits are shown in the site footer.
+
+The on-page credit line was removed from the footer on request (2026-11-06). HYG (CC BY-SA) and
+d3-celestial (BSD-3) both require attribution for the derived files the site ships, so that
+obligation now rests on this section and the README in the public repo. If the repo is ever made
+private, the attribution has to go back on the site, or into a `public/credits.txt` served at
+`/credits.txt`, before the next deploy.

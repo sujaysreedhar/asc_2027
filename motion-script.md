@@ -77,7 +77,7 @@ Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial 
 
 ## 9 · Re-entry footer
 - As the footer enters, a heat-shield glow (saffron → deep red radial gradient on a pseudo-element, opacity and `scaleY` only) rises from the bottom edge, the same warm light as the ignition. The flight ends where it began.
-- Organiser logos (slots), WhatsApp, socials, newsletter field (submits to a configurable endpoint; disabled with a clear message while unset), credits for HYG and d3-celestial, a big "See you under the Kuppam sky" sign-off, and a live IST clock.
+- Organiser logos (slots), WhatsApp, socials, newsletter field (submits to a configurable endpoint; disabled with a clear message while unset), a big "See you under the Kuppam sky" sign-off, and a live IST clock.
 
 ## Performance governor (added during build)
 - If the median frame time exceeds ~34 ms, the sky drops to 1× pixel ratio. If it then exceeds ~60 ms, it crossfades back to the poster of the same sky and stops rendering. A phone that can't hold ~16 fps gets a perfect still instead of a janky, battery-draining canvas.
