@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Astro Space Camp 2027 — styles
+   Astro Space Camp 2027: styles
    Layer order: tokens → fonts → base → components → sections → motion states
    ========================================================================== */
 
@@ -12,10 +12,10 @@
   --c-line-strong: rgb(163 174 198 / 0.34);
   --c-ink: #eef2fb;
   --c-muted: #a3aec6;
-  --c-ignite: #ff8a1f; /* warm accent — CTAs, countdown, re-entry heat only */
+  --c-ignite: #ff8a1f; /* warm accent: CTAs, countdown, re-entry heat only */
   --c-ignite-hi: #ffad5c;
   --c-ignite-ink: #05070d;
-  --c-telemetry: #7cc4ff; /* cool accent — focus, toggles, data readouts */
+  --c-telemetry: #7cc4ff; /* cool accent: focus, toggles, data readouts */
   --c-heat: #ff4a1c;
 
   --f-display: 'Anek Latin', 'Anek Fallback', system-ui, sans-serif;
@@ -206,6 +206,14 @@ main:focus-visible { outline: none; }
 }
 .brand__word { font: 650 1.02rem/1 var(--f-display); font-stretch: 92%; letter-spacing: 0.01em; display: flex; flex-direction: column; }
 .brand__year { font-size: 0.68rem; font-stretch: 75%; letter-spacing: 0.26em; color: var(--c-telemetry); margin-top: 3px; }
+/* Official logo (public/brand/asc-logo.svg), used as supplied */
+.brand__logo { display: block; height: 24px; width: auto; }
+.brand__logo + .brand__year { margin: 0; font: 600 0.72rem/1 var(--f-display); font-stretch: 78%; letter-spacing: 0.24em; align-self: center; }
+@media (max-width: 24.99em) {
+  /* Too tight beside Register + Menu on the narrowest phones; still announced to screen readers. */
+  .brand__logo + .brand__year { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+}
+@media (min-width: 64em) { .brand__logo { height: 30px; } }
 .site-nav { display: none; }
 .site-nav ul { display: flex; gap: clamp(16px, 2vw, 30px); }
 .site-nav a { font: 500 0.95rem/1 var(--f-display); font-stretch: 95%; color: var(--c-muted); transition: color 0.25s; padding: 8px 0; }
@@ -264,6 +272,7 @@ main:focus-visible { outline: none; }
 .js .preloader.is-managed { animation: none; }
 @keyframes preloader-failsafe { to { visibility: hidden; opacity: 0; } }
 .preloader__inner { position: relative; z-index: 1; display: grid; justify-items: center; gap: clamp(12px, 2.4vh, 22px); text-align: center; padding: 0 var(--gutter); }
+.preloader__logo { width: min(280px, 64vw); height: auto; margin-bottom: clamp(4px, 1vh, 10px); }
 .preloader__hud { font: 600 clamp(0.72rem, 0.5vw + 0.6rem, 0.9rem)/1.5 var(--f-display); font-stretch: 80%; letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-muted); }
 .preloader__count {
   display: flex; align-items: baseline; gap: 0.02em; overflow: hidden;
@@ -344,7 +353,7 @@ main:focus-visible { outline: none; }
 }
 @media (min-width: 48em) { .hero__credit { display: block; } }
 
-/* Batch toggle — real radio inputs, works without JS */
+/* Batch toggle: real radio inputs, works without JS */
 .batch-toggle { border: 0; margin: 0; padding: 0; min-width: 0; }
 .batch-toggle__legend { padding: 0; margin-bottom: 8px; font-size: 0.8rem; color: var(--c-muted); }
 .batch-toggle__track { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 520px; }
@@ -442,7 +451,7 @@ main:focus-visible { outline: none; }
   .stage { grid-template-columns: 1.05fr 1fr; min-height: min(68vh, 600px); }
   .stage:nth-child(even) .stage__media { order: 2; }
 }
-/* Pinned "rocket stack" layout — only when JS enables it (desktop, motion allowed) */
+/* Pinned "rocket stack" layout, only when JS enables it (desktop, motion allowed) */
 .lbl.is-staged .lbl__pin { grid-template-columns: 140px 1fr; align-items: center; height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h)); }
 .lbl.is-staged .lbl__rail { display: grid; gap: 22px; position: relative; padding-left: 18px; border-left: 1px solid var(--c-line); }
 .lbl.is-staged .lbl__rail li { font: 600 0.82rem/1 var(--f-display); font-stretch: 80%; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-muted); transition: color 0.4s; }
@@ -645,6 +654,7 @@ main:focus-visible { outline: none; }
 .reentry__social ul { display: flex; gap: 18px; }
 .reentry__base { display: grid; gap: 10px; padding-top: 24px; border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 0.82rem; color: var(--c-muted); }
 .reentry__credits { max-width: 90ch; }
+.reentry__logo { width: 190px; height: auto; margin-bottom: 6px; }
 @media (min-width: 64em) { .reentry__grid { grid-template-columns: 1.3fr 1fr 0.5fr; } }
 
 /* ---------- Mobile dock ---------- */
@@ -669,6 +679,8 @@ main:focus-visible { outline: none; }
 .is-poster body > .og-card { display: grid !important; }
 .og-card { position: fixed; inset: 0; z-index: 10; display: grid; align-content: end; gap: 14px; padding: 56px 64px; background: linear-gradient(to right, rgb(5 7 13 / 0.85), rgb(5 7 13 / 0.2) 70%), linear-gradient(to top, rgb(5 7 13 / 0.8), transparent 60%); }
 .og-card__brand { display: flex; align-items: center; gap: 12px; font: 650 22px/1 var(--f-display); letter-spacing: 0.02em; }
+.og-card__logo { height: 40px; width: auto; }
+.og-card__year { font: 600 20px/1 var(--f-display); font-stretch: 78%; letter-spacing: 0.24em; color: var(--c-telemetry); }
 .og-card__title { font: 700 64px/0.98 var(--f-display); font-stretch: 108%; letter-spacing: -0.02em; max-width: 13ch; }
 .og-card__subjects { font: 600 26px/1.1 var(--f-display); font-stretch: 90%; letter-spacing: 0.04em; color: var(--c-ignite); }
 .og-card__meta { font: 500 22px/1.3 var(--f-text); color: var(--c-telemetry); }

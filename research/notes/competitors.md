@@ -1,4 +1,4 @@
-# Subtopic 2 — Competitor camps & what parents need
+# Subtopic 2: Competitor camps & what parents need
 
 **Method and limits.** 6 searches. Page fetches were blocked, so these are search-engine extracts. Prices are third-party unless stated otherwise.
 

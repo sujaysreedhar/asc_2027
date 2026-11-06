@@ -123,7 +123,11 @@ async function posterMode(batchId: string) {
     // Open Graph card: the rendered sky + wordmark + the line, in the site's own type.
     const card = document.createElement('div')
     card.className = 'og-card'
-    card.innerHTML = `<p class="og-card__brand"><span class="brand__mark"></span>${camp.name}</p>
+    const { width, height } = camp.brand.ascLogoSize
+    const brand = camp.brand.ascLogo
+      ? `<img class="og-card__logo" src="${camp.brand.ascLogo}" alt="" width="${width}" height="${height}"><span class="og-card__year">${camp.year}</span>`
+      : `<span class="brand__mark"></span>${camp.name}`
+    card.innerHTML = `<p class="og-card__brand">${brand}</p>
       <p class="og-card__title">This is the sky your child will see on night one.</p>
       <p class="og-card__subjects">${camp.disciplines.map((d) => d.title).join(' · ')}</p>
       <p class="og-card__meta">Grades ${camp.grades.from}–${camp.grades.to} · ${camp.format.days}-day residential camp · ${camp.venue.town}, ${camp.venue.state}</p>`

@@ -14,7 +14,7 @@ const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'Ju
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const parts = (iso: string) => {
   const [y, m, d] = iso.split('-').map(Number)
-  if (!y || !m || !d) throw new Error(`render: bad date "${iso}" — use YYYY-MM-DD in camp.config.ts`)
+  if (!y || !m || !d) throw new Error(`render: bad date "${iso}". Use YYYY-MM-DD in camp.config.ts`)
   return { y, m, d, wd: WEEKDAYS[new Date(Date.UTC(y, m - 1, d)).getUTCDay()] }
 }
 export function formatRange(start: string, end: string): string {
@@ -45,7 +45,7 @@ export function registerHref(camp: Camp, batchId?: string): { href: string; exte
 }
 
 const tentativeBadge = (on: boolean) =>
-  on ? `<span class="badge badge--tentative" title="Dates to be confirmed">Tentative<span class="sr-only"> — dates to be confirmed</span></span>` : ''
+  on ? `<span class="badge badge--tentative" title="Dates to be confirmed">Tentative<span class="sr-only">, dates to be confirmed</span></span>` : ''
 
 const ext = (external: boolean) => (external ? ' target="_blank" rel="noopener"' : '')
 
@@ -62,13 +62,18 @@ function photo(p: Photo, slot: string, extraClass = '', sizes = '(min-width: 800
   // Labelled slot: honest placeholder until real camp photos are supplied (see NOTES.md).
   return `<figure class="photo photo--slot ${extraClass}" data-slot="${esc(slot)}">
     <div class="photo__frame" aria-hidden="true"><span class="photo__cross"></span><span class="photo__tag">Photo slot · ${esc(slot)}</span></div>
-    <figcaption>${esc(p.caption)} <span class="photo__pending">— camp photo to be added</span></figcaption>
+    <figcaption>${esc(p.caption)} <span class="photo__pending">(camp photo to be added)</span></figcaption>
   </figure>`
+}
+
+function logoImg(camp: Camp, cls: string, alt: string, extra = ''): string {
+  const { width, height } = camp.brand.ascLogoSize
+  return `<img class="${cls}" src="${esc(camp.brand.ascLogo ?? '')}" alt="${esc(alt)}" width="${width}" height="${height}"${extra}>`
 }
 
 function brandMark(camp: Camp): string {
   return camp.brand.ascLogo
-    ? `<img src="${esc(camp.brand.ascLogo)}" alt="${esc(camp.shortName)}" width="140" height="40">`
+    ? `${logoImg(camp, 'brand__logo', camp.shortName)}<span class="brand__year"> ${camp.year}</span>`
     : `<span class="brand__mark" aria-hidden="true"></span><span class="brand__word">Astro Space Camp <span class="brand__year">${camp.year}</span></span>`
 }
 
@@ -111,7 +116,8 @@ function preloader(camp: Camp): string {
   const g = camp.grades
   return `<div class="preloader" data-preloader aria-hidden="true">
   <div class="preloader__inner">
-    <p class="preloader__hud">${esc(camp.name)} · Grades ${g.from}–${g.to} · ${esc(camp.venue.town)}</p>
+    ${camp.brand.ascLogo ? logoImg(camp, 'preloader__logo', '') : ''}
+    <p class="preloader__hud">${camp.brand.ascLogo ? camp.year : esc(camp.name)} · Grades ${g.from}–${g.to} · ${esc(camp.venue.town)}</p>
     <p class="preloader__count"><span class="preloader__t">T</span><span class="preloader__minus">−</span><span class="preloader__num" data-count>10</span></p>
     <div class="preloader__bar"><span data-progress></span></div>
     <p class="preloader__status" data-status>Aligning star catalogue</p>
@@ -312,7 +318,7 @@ function missionLog(camp: Camp, eph: BatchEphemeris[]): string {
   <div class="log__head">
     <p class="kicker" data-reveal>Mission log</p>
     <h2 class="h2" id="log-title" data-split>Nine days, eight nights under a real sky.</h2>
-    <p class="lede" data-reveal>Nine days, two tracks running side by side — ${camp.tracks.map((t) => `<b>${esc(t.label)}</b>`).join(' and ')} — splitting only on the four build days. Each night’s darkness and moonrise below is computed for the campus.
+    <p class="lede" data-reveal>Nine days, two tracks running side by side (${camp.tracks.map((t) => `<b>${esc(t.label)}</b>`).join(' and ')}), splitting only on the four build days. Each night’s darkness and moonrise below is computed for the campus.
       <span class="log__showing">Showing ${camp.batches.map((b) => `<span data-batch="${b.id}">${esc(b.label)}</span>`).join('')}. <a class="link" href="#top" data-batch-switch>Switch batch</a>.</span></p>
     <ul class="highlights" aria-label="Camp highlights">${highlights}</ul>
     <dl class="tracks" aria-label="The two tracks">${camp.tracks
@@ -478,6 +484,7 @@ function footer(camp: Camp): string {
       <div class="reentry__social"><p class="reentry__label">Follow</p><ul>${socials}</ul></div>
     </div>
     <div class="reentry__base">
+      ${camp.brand.ascLogo ? logoImg(camp, 'reentry__logo', camp.shortName, ' loading="lazy" decoding="async"') : ''}
       <p>© ${camp.year} ${esc(camp.organizers.map((o) => o.name).join(' × '))} · <span class="reentry__clock" data-ist-clock>Kuppam, ${camp.sky.timezoneLabel}</span></p>
       <p id="sky-credits" class="reentry__credits">Sky: stars from the <a class="link" href="https://codeberg.org/astronexus/hyg"${ext(true)}>HYG database</a> (CC BY-SA), constellation lines &amp; Milky Way from <a class="link" href="https://github.com/ofrohn/d3-celestial"${ext(true)}>d3-celestial</a> (BSD-3), Moon &amp; planets via <a class="link" href="https://github.com/cosinekitty/astronomy"${ext(true)}>Astronomy Engine</a> (MIT). Positions computed for ${camp.venue.latitude}° N, ${camp.venue.longitude}° E.</p>
     </div>
@@ -506,8 +513,8 @@ export function renderHead(camp: Camp, eph: BatchEphemeris[]): string {
     return {
       '@context': 'https://schema.org',
       '@type': 'Event',
-      name: `${camp.name} — ${b.label}${b.tentative ? ' (tentative dates)' : ''}`,
-      description: `${b.tentative ? 'TENTATIVE DATES — to be confirmed by the organisers. ' : ''}Residential ${camp.format.days}-day space camp for students in Grades ${camp.grades.from}–${camp.grades.to}: ${camp.disciplines.map((d) => d.title.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' and $1')}. ${eph[i].summary}`,
+      name: `${camp.name}: ${b.label}${b.tentative ? ' (tentative dates)' : ''}`,
+      description: `${b.tentative ? 'Tentative dates, to be confirmed by the organisers. ' : ''}Residential ${camp.format.days}-day space camp for students in Grades ${camp.grades.from}–${camp.grades.to}: ${camp.disciplines.map((d) => d.title.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' and $1')}. ${eph[i].summary}`,
       startDate: `${b.start}T09:00:00${camp.sky.utcOffset}`,
       endDate: `${b.end}T17:00:00${camp.sky.utcOffset}`,
       // schema.org has no "tentative" status; EventScheduled + explicit description/name is the closest honest encoding.
@@ -542,7 +549,7 @@ export function renderHead(camp: Camp, eph: BatchEphemeris[]): string {
     <link rel="canonical" href="${esc(s.url)}/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="${esc(camp.shortName)}">
-    <meta property="og:title" content="${esc(camp.name)} — the sky your child will see on night one">
+    <meta property="og:title" content="${esc(camp.name)}: the sky your child will see on night one">
     <meta property="og:description" content="${esc(s.description)}">
     <meta property="og:url" content="${esc(s.url)}/">
     <meta property="og:image" content="${esc(og)}">

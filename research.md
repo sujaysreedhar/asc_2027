@@ -1,4 +1,4 @@
-# Astro Space Camp 2027 — Research report & design brief
+# Astro Space Camp 2027: Research report & design brief
 
 *Phase 0, 4 Nov 2026. Detailed notes with every citation live in `research/notes/` (awards, competitors, history, sky, stack). This report synthesises them. Facts marked "computed" come from code in this repo; "brief" means the client's source-of-truth list.*
 
@@ -19,7 +19,7 @@ Space-themed sites in 2025 (Oakley × Axiom, Portal Space Systems) collected Hon
 
 ## 2. What parents need, and what they skip
 
-Parents decide mostly on logistics. A University of Michigan poll found fewer than half rate safety policies as essential, and only half feel confident judging camp safety ([Michigan Medicine](https://www.michiganmedicine.org/health-lab/safety-isnt-always-top-mind-parents-when-choosing-summer-camps)). So safety information must be *easy to find* rather than *the pitch*. Huntsville publishes its supervision ratio (≤16:1, with separate day and night leaders — [Rocket Center](https://www.rocketcenter.com/docs/SpaceCampQA.pdf)). We don't know ours, so the FAQ says "to be confirmed" and routes to WhatsApp instead of inventing a number.
+Parents decide mostly on logistics. A University of Michigan poll found fewer than half rate safety policies as essential, and only half feel confident judging camp safety ([Michigan Medicine](https://www.michiganmedicine.org/health-lab/safety-isnt-always-top-mind-parents-when-choosing-summer-camps)). So safety information must be *easy to find* rather than *the pitch*. Huntsville publishes its supervision ratio (≤16:1, with separate day and night leaders: [Rocket Center](https://www.rocketcenter.com/docs/SpaceCampQA.pdf)). We don't know ours, so the FAQ says "to be confirmed" and routes to WhatsApp instead of inventing a number.
 
 In India, the comparison set is ISRO's YUVIKA: free, Class 9 only, selection-based ([space-india](https://space-india.com/isro-yuvika-2026/)). Our honest differentiators are Grades 7–12, open registration, residential, and hands-on Learn→Build→Launch every day ([competitors notes](research/notes/competitors.md)).
 
@@ -35,7 +35,7 @@ Two conflicts are logged in NOTES.md:
 
 No residential-camp testimonials exist in any reachable source, so **the site ships no quotes** until the organisers supply them ([history notes](research/notes/history.md)).
 
-## 4. The real sky — verified
+## 4. The real sky, verified
 
 HYG v3.7 (CC BY-SA) supplies 8,900+ naked-eye stars with magnitude and B–V colour. d3-celestial (BSD-3) supplies constellation stick figures and Milky Way contours. The maths (Meeus GMST → LST → IAU 1976 precession → horizontal frame) reduces to **one rotation matrix per frame**. It matches astronomy-engine to **≤24.5″** across 18 test cases ([sky notes](research/notes/sky.md)).
 
@@ -59,7 +59,7 @@ The computation also produced content the brief didn't anticipate:
 
 ---
 
-# Scope update — 5 Nov 2026 (from the client)
+# Scope update, 5 Nov 2026 (from the client)
 
 The camp teaches **rockets, satellites and aircraft as well as astronomy**; aircraft was not in the original brief. The first build leaned on the sky and read as a stargazing camp. Changes:
 - The hero subline names all four subjects.
@@ -90,7 +90,7 @@ The signature stays the real sky: it is the shared stage that aircraft, rockets 
 - Both are verified to contain ₹ (U+20B9) in the font file. Instrument Sans was rejected because it lacks the glyph despite its CSS claim.
 - Self-hosted, subset, preloaded, with `size-adjust` fallbacks.
 
-**Photography.** Real camp photos only. None were retrievable, so every image slot is a designed, captioned placeholder ("Camp photo — Build stage") driven from config, and swapping in real files is one line each. No stock images, no AI people.
+**Photography.** Real camp photos only. None were retrievable, so every image slot is a designed, captioned placeholder ("Build stage: rocket assembly (camp photo to be added)") driven from config, and swapping in real files is one line each. No stock images, no AI people.
 
 **Conversion.**
 - Sticky "Register" pill (saffron) is always visible.

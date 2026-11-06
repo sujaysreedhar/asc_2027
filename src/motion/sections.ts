@@ -58,7 +58,7 @@ function countUps() {
   })
 }
 
-/** LBL: the one pinned chapter — stages separate like a rocket (desktop); stacked reveals on mobile. */
+/** LBL: the one pinned chapter. Stages separate like a rocket (desktop); stacked reveals on mobile. */
 function lbl(lite: boolean) {
   const section = $('#lbl')
   const stages = $$('.stage', section!)
@@ -120,7 +120,7 @@ function missionLog(lite: boolean) {
     return () => {}
   }
   section.classList.add('is-scrubbed')
-  viewport.removeAttribute('tabindex') // no native scroll in this mode — page scroll drives it
+  viewport.removeAttribute('tabindex') // no native scroll in this mode; page scroll drives it
   viewport.removeAttribute('role')
   const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth + parseFloat(getComputedStyle(viewport).paddingLeft) * 2)
   const tl = gsap.timeline({

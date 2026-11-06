@@ -84,7 +84,7 @@ function loadBinary(manager: THREE.LoadingManager, url: string): Promise<ArrayBu
   return loader.loadAsync(url) as Promise<ArrayBuffer>
 }
 
-/** Deterministic hills for the campus horizon (stylised: the real horizon profile is unknown — see NOTES.md). */
+/** Deterministic hills for the campus horizon (stylised: the real horizon profile is unknown, see NOTES.md). */
 function terrainHeightDeg(azDeg: number): number {
   const a = azDeg * DEG
   let h = 1.6
@@ -188,7 +188,7 @@ export async function createSky(opts: SkyOptions) {
     const moonCos = dot(dir, u.moonDir)
     const halo = exp(moonCos.sub(1).mul(40)).mul(0.5).add(exp(moonCos.sub(1).mul(6)).mul(0.16))
     const moonLight = lin('#3a5482').mul(u.moonSky).mul(halo.add(0.3)).mul(smoothstep(-0.05, 0.3, sinAlt).mul(0.6).add(0.4)).mul(0.09)
-    // Grain doubles as dithering against gradient banding (interleaved gradient noise — no hash precision streaks).
+    // Grain doubles as dithering against gradient banding (interleaved gradient noise, so no hash precision streaks).
     const ign = fract(fract(screenCoordinate.x.mul(0.06711056).add(screenCoordinate.y.mul(0.00583715))).mul(52.9829189))
     const grain = ign.sub(0.5).mul(0.0035)
     return night.add(milky.mul(above)).add(cityGlow).add(ignite).add(moonLight).add(grain)
@@ -200,7 +200,7 @@ export async function createSky(opts: SkyOptions) {
 
   // ---------- Stars: instanced sprites sized by magnitude, coloured by B–V ----------
   const view = new DataView(starBuf)
-  if (view.getUint32(0, true) !== 0x31435341) throw new Error('sky: stars.bin has an unexpected header — rebuild with npm run sky:data')
+  if (view.getUint32(0, true) !== 0x31435341) throw new Error('sky: stars.bin has an unexpected header. Rebuild with npm run sky:data')
   const total = view.getUint32(4, true)
   const magCut = mobile ? 5.5 : 6.5
   let count = 0
@@ -422,7 +422,7 @@ export async function createSky(opts: SkyOptions) {
     lOrderAttr.needsUpdate = true
   }
 
-  // ---------- Labels (DOM, aria-hidden — the text summary lives in the hero markup) ----------
+  // ---------- Labels (DOM, aria-hidden; the text summary lives in the hero markup) ----------
   type Label = { el: HTMLElement; vec: () => Vec3; minAlt: number; visible: () => boolean }
   const labelList: Label[] = []
   function addLabel(text: string, cls: string, vec: () => Vec3, minAlt: number, visible: () => boolean = () => true) {
@@ -543,7 +543,7 @@ export async function createSky(opts: SkyOptions) {
   const handBack = (median: number) => {
     if (tooSlowFired) return
     tooSlowFired = true
-    console.info(`[sky] median frame ${median.toFixed(0)} ms — handing back to the poster`)
+    console.info(`[sky] median frame ${median.toFixed(0)} ms, handing back to the poster`)
     onTooSlow?.()
   }
   function govern(ms: number) {
@@ -562,7 +562,7 @@ export async function createSky(opts: SkyOptions) {
       renderer.setPixelRatio(1)
       resize()
       warmup = 6
-      console.info(`[sky] median frame ${median.toFixed(0)} ms — rendering at 1× pixel ratio`)
+      console.info(`[sky] median frame ${median.toFixed(0)} ms, rendering at 1× pixel ratio`)
     } else if (median > 60 && degradeStep === 1) {
       handBack(median)
     }

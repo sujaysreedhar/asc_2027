@@ -10,7 +10,7 @@ import { localTimeToMs } from '../sky/astro.ts'
 
 export type BodyEphemeris = {
   name: string
-  /** J2000 RA/Dec (degrees) — the client applies the same precession+sidereal matrix as for stars. */
+  /** J2000 RA/Dec (degrees): the client applies the same precession+sidereal matrix as for stars. */
   ra: number
   dec: number
   mag: number
@@ -52,7 +52,7 @@ function hhmm(t: A.AstroTime | null, offsetMin: number): string | null {
 
 function offsetMinutes(utcOffset: string): number {
   const m = /^([+-])(\d\d):(\d\d)$/.exec(utcOffset)
-  if (!m) throw new Error(`ephemeris: bad utcOffset "${utcOffset}" — expected like +05:30`)
+  if (!m) throw new Error(`ephemeris: bad utcOffset "${utcOffset}". Expected a value like +05:30`)
   return (m[1] === '-' ? -1 : 1) * (Number(m[2]) * 60 + Number(m[3]))
 }
 
@@ -71,7 +71,7 @@ export function computeEphemeris(camp: Camp): BatchEphemeris[] {
     const nightOneMs = localTimeToMs(batch.start, camp.sky.nightOneTime, camp.sky.utcOffset)
     const when = new Date(nightOneMs)
     const bodies: BodyEphemeris[] = BODIES.map((name) => {
-      // J2000 astrometric equatorial coordinates (no aberration) — consistent with the star catalogue.
+      // J2000 astrometric equatorial coordinates (no aberration), consistent with the star catalogue.
       const j2000 = A.Equator(name, when, obs, false, false)
       const ofDate = A.Equator(name, when, obs, true, true)
       const hor = A.Horizon(when, obs, ofDate.ra, ofDate.dec, 'normal')
@@ -95,7 +95,7 @@ export function computeEphemeris(camp: Camp): BatchEphemeris[] {
     const startMs = Date.parse(`${batch.start}T00:00:00Z`)
     const endMs = Date.parse(`${batch.end}T00:00:00Z`)
     const count = Math.round((endMs - startMs) / 86_400_000) // nights = days − 1
-    if (!(count > 0 && count < 40)) throw new Error(`ephemeris: ${batch.id} has ${count} nights — check start/end dates`)
+    if (!(count > 0 && count < 40)) throw new Error(`ephemeris: ${batch.id} has ${count} nights. Check start/end dates`)
     for (let i = 0; i < count; i++) {
       const date = addDays(batch.start, i)
       const noon = new Date(localTimeToMs(date, '12:00', camp.sky.utcOffset))

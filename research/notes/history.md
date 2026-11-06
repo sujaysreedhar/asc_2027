@@ -1,4 +1,4 @@
-# Subtopic 3 — Our history (previous sites & editions)
+# Subtopic 3: Our history (previous sites & editions)
 
 **Method and limits.** The session's network policy **blocked** `astrospacecamp.com`, `astrospacecamp.pages.dev`, `web.archive.org`, `sserd.org` and `genex.space`. WebFetch returned `ENOTFOUND` and curl got a proxy 403. Everything below comes from search-engine extracts of those pages and third-party listings across 8 searches. **I could not download any logos or photos.** The site ships with clearly labelled slots instead (see NOTES.md).
 

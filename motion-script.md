@@ -1,4 +1,4 @@
-# Motion script — "Your child's sky"
+# Motion script: "Your child's sky"
 
 One continuous flight: **ground → orbit → ground**. The camera only ever moves forward, and the scroll never reverses the story (the OceanX lesson). One signature moment, the real sky, lives in the hero. Every later section is quiet and reuses the same vocabulary.
 
@@ -15,8 +15,8 @@ One continuous flight: **ground → orbit → ground**. The camera only ever mov
 
 Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial states live in CSS under `.js-ready`. JS-off never hides anything.
 
-## 0 · Preloader — "T-10" (first visit only)
-- **0.0 s** — The page paints with the hero underneath (DOM text, so LCP is the real headline). Over it sits the preloader: black, with a HUD line `ASTRO SPACE CAMP 2027 · GRADES 7–12 · KUPPAM` and a huge countdown `T-10`. The key facts are readable before anything loads.
+## 0 · Preloader: "T-10" (first visit only)
+- **0.0 s:** The page paints with the hero underneath (DOM text, so LCP is the real headline). Over it sits the preloader: black, with a HUD line `ASTRO SPACE CAMP 2027 · GRADES 7–12 · KUPPAM` and a huge countdown `T-10`. The key facts are readable before anything loads.
 - **Progress:** one `THREE.LoadingManager` tracks fonts, the star catalogue, the Milky Way texture, the ephemeris and the three.js chunk. Displayed `T-n = 10 − round(progress × 10)`, tweened (`power2.out` 0.6 s) so it never jumps. A thin saffron line under the number scales X with progress.
 - **Hold rules:** minimum 1.2 s on screen. If assets aren't ready after 4 s, the countdown completes anyway, the hero shows the poster sky, and the live sky crossfades in when ready. Parents on slow 4G are never held hostage.
 - **Ignition (T-0):** the number exits up (`yPercent -100`, `power2.in` 0.45 s). A saffron radial bloom grows from the bottom centre: a single pulse of opacity 0 → 0.9 → 0 over 0.9 s, so nothing flashes. The preloader then wipes away `clip-path: inset(0 0 100% 0)` (`mission`, 1.0 s). **The seam:** the bloom doesn't vanish. It settles into the warm horizon glow behind the campus silhouette, so the ignition *becomes* the hero's horizon.
@@ -24,7 +24,7 @@ Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial 
 - **Repeat visit** (sessionStorage): no countdown; a 0.4 s fade from black.
 - **Reduced motion:** no countdown and no bloom; the poster is visible immediately.
 
-## 1 · Hero — the real sky (signature)
+## 1 · Hero: the real sky (signature)
 - **Scene:** camera at the campus, 1.6 m above ground, looking toward the batch's chosen azimuth about 20° above the horizon, field of view 60° on desktop and 75° in portrait. Stars are instanced sprites sized by magnitude and coloured by B–V. Milky Way texture; Moon (with lit fraction) and planets with tiny labels. Dark terrain ring and horizon glow.
 - **Entrance (after preloader):**
   - `uReveal` 0 → 1 (stars fade in brightest-first: a star appears when `uReveal > (mag + 1.5) / 8`). 2.4 s `expo.out`.
@@ -36,7 +36,7 @@ Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial 
 - **Idle:** sidereal drift at 120× real time (one sky-minute every 0.5 s), clock readout ticking. Pointer parallax ±1.5° (desktop only, `quickTo` 0.8 s).
 - **Batch toggle (April ↔ June):** Moon, planets and lines fade out (0.45 s `power2.in`). The sky sweeps through the shortest sidereal difference between the two nights while the camera pans to the new featured azimuth (`mission`, 1.6 s). Bodies fade back in and the constellations redraw (1.8 s). The date readout switches to the new night. Built without a scramble effect, which would have been a second signature.
 - **Composition:** on wide screens the featured azimuth sits at about 68 % of the width so the headline never covers it. Portrait screens centre it.
-- **Copy:** h1 "This is the sky your child will see on night one." Subline (scope update): "They'll build rockets, design satellites, learn how aircraft fly — and learn to read this sky." This makes the camp read as aerospace within five seconds, not stargazing. Then Grades 7–12, 9 days / 8 nights residential, Kuppam. Dates with "Tentative" badges. Primary CTA "Register interest" plus WhatsApp.
+- **Copy:** h1 "This is the sky your child will see on night one." Subline (scope update): "They'll build rockets, design satellites, learn how aircraft fly, and learn to read this sky." This makes the camp read as aerospace within five seconds, not stargazing. Then Grades 7–12, 9 days / 8 nights residential, Kuppam. Dates with "Tentative" badges. Primary CTA "Register interest" plus WhatsApp.
 - **Labels never sit on the copy:** sky labels skip the hero text block, whose rectangle is re-read only on scroll/resize. The posters use the same rule.
 
 ## 2 · Ascent
@@ -44,13 +44,13 @@ Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial 
 - Stats tick past as altitude readouts: `ALT 11 YRS`, `2,000+ STUDENTS`, `50+ CAMPS`, `20+ SCHOLARSHIPS`. Numbers count up once on enter (1.4 s, `power3.out`), set in condensed Anek with a telemetry-blue tick ruler.
 - Text sits on a scrim so contrast holds mid-tilt.
 
-## 2b · Subjects — "From the runway to the stars" (scope update)
+## 2b · Subjects: "From the runway to the stars" (scope update)
 - Four cards in **altitude order**: Aircraft (≈ 11 km, where airliners cruise) → Rockets (100 km, the Kármán line) → Satellites (≈ 400 km, low Earth orbit) → Astronomy (light-years). On wide screens they form a rising staircase, like an altitude chart.
 - The ascent continues through this section: the live sky keeps tilting toward the zenith behind it, and the section's scrim keeps text AA.
 - Entrance: cards rise (stagger 0.1, `expo.out`), then each line icon **draws itself** with DrawSVG (1.4 s, `power2.inOut`). The constellation lines' motif returns in a quieter register.
 - Activities show as chips, only ones the camp really runs (from the config). Cross-cutting items (astronaut-style training, experiments, guest speakers) sit on one line underneath.
 
-## 3 · LBL — staging (the one pinned chapter, ≤ 2.5 viewport heights)
+## 3 · LBL: staging (the one pinned chapter, ≤ 2.5 viewport heights)
 - Pinned. Three stacked "stages" (Learn, Build, Launch) start joined like a rocket stack. As you scroll, each stage separates (`yPercent` and a small rotation) and its panel expands: photo slot clip-reveals (`inset(100% 0 0 0) → inset(0)`) and copy rises.
 - The progress rail at left fills with telemetry blue.
 - Keyboard: each stage heading is in normal tab order and the pin never traps focus. Reduced motion: three stacked cards, no pin.
@@ -60,7 +60,7 @@ Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial 
 - Each card shows the day number, theme ("To be announced" until the schedule is final) and a **computed** line: *Moonrise 00:50 · dark sky until then*.
 - The track is a focusable region with arrow-key scrolling. Reduced motion: a plain vertical list.
 
-## 5 · Ground station (venue, travel, safety) — calm
+## 5 · Ground station (venue, travel, safety): calm
 - **No scroll effects beyond a single fade-up.** This is where parents decide.
 - Two-column facts grid: Venue (Agastya campus, Kuppam, AP), Getting there (BLR airport, Kuppam KPN rail, Bengaluru pickup on request), Stay (boarding, vegetarian meals), Safety (24/7 security, supervision details "to be confirmed"). A schematic SVG route map (Bengaluru → campus, Kuppam station), labelled "not to scale". No distances are given, because none were verified.
 
@@ -68,7 +68,7 @@ Animate only `transform`, `opacity`, `clip-path` (plus WebGL uniforms). Initial 
 - Photo wall from previous camps (masonry, all placeholders until real photos arrive), revealed with `clip-path` from centre (stagger `{ from: 'center' }`). **Not built:** the WebGL hover distortion. With no real photos yet there is nothing to distort; placeholder slots get a CSS `scale(1.03)` hover. See NOTES.md.
 - Testimonials: render only when config has entries. Until then an invitation: "Were you at a previous camp? Share your story on WhatsApp."
 
-## 7 · Mission patch — batches & fees
+## 7 · Mission patch: batches & fees
 - Two batch cards like mission patches: Batch 1 / Batch 2, tentative badge, dates, grades, price block (early bird / regular, "Announcing soon" until set), inclusions list, Register CTA.
 - Cards rise (stagger 0.12). The selected hero batch is highlighted with a Flip-animated outline (continuity with the hero toggle).
 
