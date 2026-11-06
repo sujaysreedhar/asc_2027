@@ -38,7 +38,7 @@ Open **`src/content/camp.config.ts`**. Every value is commented. Common edits:
 |---|---|---|
 | Batch dates | `batches[].start`, `batches[].end` (`'YYYY-MM-DD'`) | The hero sky, itinerary dates, moonrise times, batch cards and search-engine data all update. **Re-render posters** (below). |
 | "Tentative" badge | `batches[].tentative: false` | Removes the badge everywhere and from the schema.org data |
-| Fees | `fees.earlyBird.amount`, `fees.regular.amount` (numbers, e.g. `48000`), `fees.earlyBird.until` | While `null`, the site shows "TBD / Fees announcing soon". Shown as ₹48,000. |
+| Fees | Per track: `tracks[].earlyBird.amount`, `tracks[].regular.amount` (numbers, e.g. `48000`), `tracks[].earlyBird.until` | Each track is priced separately. While every amount is `null`, the site shows "TBD / Fees announcing soon" and publishes no price to search engines. Shown as ₹48,000. |
 | Register link | `links.register` (or per batch: `batches[].registerUrl`) | While `null`, Register opens WhatsApp with a pre-filled message |
 | Pay link | `links.pay` | Adds a "Pay now" button to each batch card |
 | WhatsApp | `contact.whatsapp` (digits only, with 91) and `contact.whatsappDisplay` | |

@@ -591,6 +591,9 @@ main:focus-visible { outline: none; }
 .patch__title { font: 700 clamp(2rem, 3vw + 1rem, 3rem)/1 var(--f-display); font-stretch: 105%; }
 .patch__dates { font: 600 clamp(1.15rem, 1vw + 0.95rem, 1.5rem)/1.25 var(--f-display); padding-right: 110px; }
 .patch__meta { color: var(--c-muted); }
+.prices__tracks { display: grid; gap: 14px; margin-top: 10px; }
+.prices__track-label { font: 600 0.72rem/1 var(--f-display); font-stretch: 80%; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-telemetry); }
+.prices__track .prices { margin-top: 6px; }
 .prices { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 8px; background: var(--c-line); border: 1px solid var(--c-line); border-radius: 12px; overflow: hidden; }
 .price { display: grid; gap: 4px; padding: 14px 16px; background: var(--c-surface); }
 .price__label { font: 600 0.72rem/1 var(--f-display); font-stretch: 80%; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-muted); }

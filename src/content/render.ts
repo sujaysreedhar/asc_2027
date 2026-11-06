@@ -391,16 +391,23 @@ function crew(camp: Camp): string {
 
 function batches(camp: Camp): string {
   const fee = camp.fees
+  /** One price table per track: the two tracks are priced separately. */
   const priceBlock = () => {
-    const rows = [fee.earlyBird, fee.regular]
-      .map((p) => {
-        const amount = p.amount != null ? `<span class="price__amount">${inr(p.amount)}</span>` : `<span class="price__amount price__amount--tbd">TBD</span>`
-        const until = p.until ? `<span class="price__until">until ${longDate(p.until)}</span>` : ''
-        return `<div class="price"><span class="price__label">${esc(p.label)}</span>${amount}${until}</div>`
+    const groups = camp.tracks
+      .map((t) => {
+        const rows = [t.earlyBird, t.regular]
+          .map((p) => {
+            const amount = p.amount != null ? `<span class="price__amount">${inr(p.amount)}</span>` : `<span class="price__amount price__amount--tbd">TBD</span>`
+            const until = p.until ? `<span class="price__until">until ${longDate(p.until)}</span>` : ''
+            return `<div class="price"><span class="price__label">${esc(p.label)}</span>${amount}${until}</div>`
+          })
+          .join('')
+        return `<div class="prices__track"><p class="prices__track-label">${esc(t.label)}</p><div class="prices">${rows}</div></div>`
       })
       .join('')
-    const pending = fee.earlyBird.amount == null && fee.regular.amount == null ? `<p class="price__pending">${esc(fee.pendingMessage)}. Register interest and we’ll message you first.</p>` : ''
-    return `<div class="prices">${rows}</div>${pending}`
+    const noneSet = camp.tracks.every((t) => t.earlyBird.amount == null && t.regular.amount == null)
+    const pending = noneSet ? `<p class="price__pending">${esc(fee.pendingMessage)}. Register interest and we’ll message you first.</p>` : ''
+    return `<div class="prices__tracks">${groups}</div>${pending}`
   }
   const cards = camp.batches
     .map((b, i) => {
@@ -506,10 +513,18 @@ export function renderHead(camp: Camp, eph: BatchEphemeris[]): string {
   const s = camp.site
   const og = s.url + s.ogImage
   const events = camp.batches.map((b, i) => {
-    const offers =
-      camp.fees.regular.amount != null
-        ? { offers: { '@type': 'Offer', price: camp.fees.regular.amount, priceCurrency: camp.fees.currency, url: registerHref(camp, b.id).href, availability: 'https://schema.org/InStock' } }
-        : {}
+    // One Offer per track that has a regular price; no price set means no offers key at all.
+    const trackOffers = camp.tracks
+      .filter((t) => t.regular.amount != null)
+      .map((t) => ({
+        '@type': 'Offer',
+        name: `${t.label} track`,
+        price: t.regular.amount,
+        priceCurrency: camp.fees.currency,
+        url: registerHref(camp, b.id).href,
+        availability: 'https://schema.org/InStock',
+      }))
+    const offers = trackOffers.length ? { offers: trackOffers } : {}
     return {
       '@context': 'https://schema.org',
       '@type': 'Event',

@@ -29,7 +29,14 @@ export type Batch = {
 export type Price = { amount: number | null; label: string; until?: string | null }
 
 /** The two parallel tracks students pick between. Same nine days, different depth of build. */
-export type Track = { id: string; label: string; line: string }
+export type Track = {
+  id: string
+  label: string
+  line: string
+  /** This track's fee. Keep both amounts null until the organisers sign the numbers off. */
+  earlyBird: Price
+  regular: Price
+}
 
 export type ItineraryDay = {
   /** Headline for the day, shown to everyone. */
@@ -91,19 +98,25 @@ export const camp = {
       id: 'advanced',
       label: 'Advanced',
       line: 'Astrophotography, a radio-controlled aircraft, recovery rockets and a working ground station.',
+      earlyBird: { amount: null, label: 'Early bird', until: null } as Price,
+      regular: { amount: null, label: 'Regular' } as Price,
     },
     {
       id: 'basic',
       label: 'Basic',
       line: 'Sky gazing with real instruments, a chuck glider, C-class rockets and a CubeSat build.',
+      earlyBird: { amount: null, label: 'Early bird', until: null } as Price,
+      regular: { amount: null, label: 'Regular' } as Price,
     },
   ] satisfies Track[],
 
-  /** Fees are NOT decided. Leave amount: null until they are; the site says "Announcing soon". */
+  /**
+   * Fees are NOT decided. The amounts live on each track above, in `tracks[].earlyBird` and
+   * `tracks[].regular`, so a new track cannot be added without a price. While every amount is
+   * null the site shows `pendingMessage` and publishes no price in the search-engine data.
+   */
   fees: {
     currency: 'INR',
-    earlyBird: { amount: null, label: 'Early bird', until: null } as Price,
-    regular: { amount: null, label: 'Regular' } as Price,
     pendingMessage: 'Fees announcing soon',
   },
 
