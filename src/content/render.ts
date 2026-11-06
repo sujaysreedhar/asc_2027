@@ -262,11 +262,27 @@ function lbl(camp: Camp): string {
 </section>`
 }
 
+/** A day card's lower half: the shared theme, plus the per-track split on the days the tracks differ. */
+function dayTheme(camp: Camp, day: Camp['itinerary'][number]): string {
+  const split = camp.tracks
+    .map((t) => {
+      const activity = day[t.id as 'advanced' | 'basic']
+      return activity
+        ? `<li><span class="day__track">${esc(t.label)}</span> ${esc(activity)}</li>`
+        : ''
+    })
+    .join('')
+  return `<div class="day__theme">
+        <p class="day__theme-title">${esc(day.theme)}</p>
+        ${split ? `<ul class="day__split" aria-label="What each track does on this day">${split}</ul>` : ''}
+      </div>`
+}
+
 function missionLog(camp: Camp, eph: BatchEphemeris[]): string {
   const days = camp.format.days
   const cards: string[] = []
   for (let d = 0; d < days; d++) {
-    const theme = camp.itineraryThemes[d]
+    const day = camp.itinerary[d]
     const perBatch = camp.batches
       .map((b, bi) => {
         const date = new Date(Date.parse(`${b.start}T12:00:00Z`) + d * 86_400_000).toISOString().slice(0, 10)
@@ -288,7 +304,7 @@ function missionLog(camp: Camp, eph: BatchEphemeris[]): string {
     cards.push(`<li class="day" style="--d:${d}">
       <p class="day__num">Day ${String(d + 1).padStart(2, '0')}</p>
       ${perBatch}
-      <p class="day__theme">${theme ? esc(theme) : '<span class="tbc">Theme to be announced</span>'}</p>
+      ${day ? dayTheme(camp, day) : '<p class="day__theme"><span class="tbc">Theme to be announced</span></p>'}
     </li>`)
   }
   const highlights = camp.highlights.map((h) => `<li>${esc(h)}</li>`).join('')
@@ -296,9 +312,12 @@ function missionLog(camp: Camp, eph: BatchEphemeris[]): string {
   <div class="log__head">
     <p class="kicker" data-reveal>Mission log</p>
     <h2 class="h2" id="log-title" data-split>Nine days, eight nights under a real sky.</h2>
-    <p class="lede" data-reveal>The day-by-day schedule is being finalised. What’s fixed already is the sky: each night’s darkness and moonrise below is computed for the campus.
+    <p class="lede" data-reveal>Nine days, two tracks running side by side — ${camp.tracks.map((t) => `<b>${esc(t.label)}</b>`).join(' and ')} — splitting only on the four build days. Each night’s darkness and moonrise below is computed for the campus.
       <span class="log__showing">Showing ${camp.batches.map((b) => `<span data-batch="${b.id}">${esc(b.label)}</span>`).join('')}. <a class="link" href="#top" data-batch-switch>Switch batch</a>.</span></p>
-    <ul class="highlights" aria-label="Camp highlights from previous editions">${highlights}</ul>
+    <ul class="highlights" aria-label="Camp highlights">${highlights}</ul>
+    <dl class="tracks" aria-label="The two tracks">${camp.tracks
+      .map((t) => `<div class="tracks__item"><dt>${esc(t.label)}</dt><dd>${esc(t.line)}</dd></div>`)
+      .join('')}</dl>
   </div>
   <div class="log__viewport" data-log-viewport tabindex="0" role="region" aria-label="Nine-day itinerary, scrolls sideways">
     <svg class="log__orbit" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><path data-orbit d="M0 100 C 250 10, 750 10, 1000 100"/></svg>

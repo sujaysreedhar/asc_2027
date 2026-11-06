@@ -28,6 +28,17 @@ export type Batch = {
 
 export type Price = { amount: number | null; label: string; until?: string | null }
 
+/** The two parallel tracks students pick between. Same nine days, different depth of build. */
+export type Track = { id: string; label: string; line: string }
+
+export type ItineraryDay = {
+  /** Headline for the day, shown to everyone. */
+  theme: string
+  /** What each track builds when the two differ. Both null = the whole camp does `theme` together. */
+  advanced: string | null
+  basic: string | null
+}
+
 export type FaqItem = {
   q: string
   a: string
@@ -63,9 +74,26 @@ export const camp = {
   grades: { from: 7, to: 12 },
 
   batches: [
-    { id: 'batch-1', label: 'Batch 1', start: '2027-04-27', end: '2027-05-05', tentative: true, skyViewAzimuth: 172, registerUrl: null },
-    { id: 'batch-2', label: 'Batch 2', start: '2027-06-20', end: '2027-06-28', tentative: true, skyViewAzimuth: 130, registerUrl: null },
+    { id: 'batch-1', label: 'Batch 1', start: '2027-04-23', end: '2027-05-01', tentative: true, skyViewAzimuth: 172, registerUrl: null },
+    { id: 'batch-2', label: 'Batch 2', start: '2027-06-25', end: '2027-07-03', tentative: true, skyViewAzimuth: 130, registerUrl: null },
   ] satisfies Batch[],
+
+  /**
+   * Both tracks run side by side for all nine days: same campus, same sky, same astronaut
+   * training and meteorite hunt. They differ on four build days (2, 5, 7 and 8).
+   */
+  tracks: [
+    {
+      id: 'advanced',
+      label: 'Advanced',
+      line: 'Astrophotography, a radio-controlled aircraft, recovery rockets and a working ground station.',
+    },
+    {
+      id: 'basic',
+      label: 'Basic',
+      line: 'Sky gazing with real instruments, a chuck glider, C-class rockets and a CubeSat build.',
+    },
+  ] satisfies Track[],
 
   /** Fees are NOT decided. Leave amount: null until they are — the site says "Announcing soon". */
   fees: {
@@ -116,7 +144,7 @@ export const camp = {
       altitudeNote: 'where airliners cruise',
       line: 'How aircraft fly.',
       body: 'Lift, drag, thrust and control: the principles of flight behind every aeroplane, and how engineers design for them.',
-      activities: [] as string[], // e.g. 'Glider build & flight test' — add once the schedule is final
+      activities: ['RC plane build & flight test', 'Chuck glider build & flight test'],
     },
     {
       key: 'rockets',
@@ -125,7 +153,7 @@ export const camp = {
       altitudeNote: 'the Kármán line, where space begins',
       line: 'Build it. Launch it.',
       body: 'Thrust, stability and recovery: students build their own model rocket from a DIY kit, count it down and launch it.',
-      activities: ['Model rocket build & launch'],
+      activities: ['Recovery rockets', 'C-class model rockets'],
     },
     {
       key: 'satellites',
@@ -134,7 +162,7 @@ export const camp = {
       altitudeNote: 'low Earth orbit',
       line: 'Design the payload. Track the pass.',
       body: 'What a satellite carries and why, and how a ground station finds one crossing the sky at 7–8 km every second.',
-      activities: ['Satellite payload design', 'Live satellite tracking via ground station'],
+      activities: ['CubeSat build', 'Ground station build & live satellite tracking'],
     },
     {
       key: 'astronomy',
@@ -143,7 +171,7 @@ export const camp = {
       altitudeNote: 'the night sky over Kuppam',
       line: 'Read the sky.',
       body: 'Constellations, planets and the Moon from a dark campus, plus a hunt for meteorites on the ground.',
-      activities: ['Night sky gazing', 'Meteorite hunting'],
+      activities: ['Astrophotography', 'Night sky gazing & astronomical instruments', 'Meteorite hunting'],
     },
   ],
   /** Shown under the four subjects. */
@@ -178,14 +206,14 @@ export const camp = {
   ],
 
   highlights: [
-    'Principles of flight & aircraft design',
-    'Model rocket build & launch',
-    'Satellite payload design',
-    'Live satellite tracking via ground station',
-    'Astronaut-style training',
+    'Experience centre & field trip',
+    'Astrophotography & night sky gazing',
+    'Astronaut training',
+    'RC plane & chuck glider builds',
     'Meteorite hunting',
-    'Night sky gazing',
-    'Live experiments & simulations',
+    'Recovery & C-class rockets',
+    'CubeSat build',
+    'Ground station & live satellite tracking',
     'Guest speakers from the space sector',
   ],
 
@@ -200,8 +228,21 @@ export const camp = {
     '24/7 security',
   ],
 
-  /** Day themes are placeholders until the schedule is final. Replace null with e.g. 'Rocketry I'. */
-  itineraryThemes: [null, null, null, null, null, null, null, null, null] as Array<string | null>,
+  /**
+   * The nine days, in order. `advanced`/`basic` are filled in only on the days the two tracks
+   * split; leave both null and everyone does `theme` together.
+   */
+  itinerary: [
+    { theme: 'Experience centre & field trip', advanced: null, basic: null },
+    { theme: 'Under the night sky', advanced: 'Astrophotography', basic: 'Sky gazing & astronomical instruments' },
+    { theme: 'Rest day', advanced: null, basic: null },
+    { theme: 'Astronaut training', advanced: null, basic: null },
+    { theme: 'Principles of flight', advanced: 'RC plane build & flight test', basic: 'Chuck glider build & flight test' },
+    { theme: 'Meteorite hunting', advanced: null, basic: null },
+    { theme: 'Rocketry', advanced: 'Recovery rockets', basic: 'C-class rockets' },
+    { theme: 'Satellites', advanced: 'Ground station build & live tracking', basic: 'CubeSat build' },
+    { theme: 'Closing day', advanced: null, basic: null },
+  ] satisfies ItineraryDay[],
 
   faq: [
     {

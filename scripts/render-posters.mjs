@@ -22,7 +22,8 @@ async function up() {
 }
 let server = null
 if (!(await up())) {
-  server = spawn('npx', ['vite', 'preview', '--port', '4173', '--strictPort'], { cwd: root, stdio: 'ignore' })
+  // shell: true on Windows — npm ships npx as npx.cmd, which bare spawn() cannot find (ENOENT).
+  server = spawn('npx', ['vite', 'preview', '--port', '4173', '--strictPort'], { cwd: root, stdio: 'ignore', shell: process.platform === 'win32' })
   for (let i = 0; i < 50 && !(await up()); i++) await new Promise((r) => setTimeout(r, 200))
   if (!(await up())) throw new Error(`render-posters: preview server did not start at ${BASE} — run npm run build first`)
 }

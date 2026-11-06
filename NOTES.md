@@ -7,16 +7,16 @@ Read this before launch. Items are ordered by how much they matter to a parent r
 | # | Item | Status | Where to fix |
 |---|------|--------|--------------|
 | 1 | **Fees** | Not decided. Every price shows **TBD** and "Fees announcing soon". No number is published anywhere, including the schema.org data. | `fees` in `src/content/camp.config.ts` |
-| 2 | **Dates** | Both batches are tentative. A "Tentative" badge appears everywhere dates do, and the JSON-LD name/description say so. | `batches[].tentative` |
+| 2 | **Dates** | Set from the client's batch sheet on 6 Nov 2026: Batch 1 **23 Apr – 1 May 2027**, Batch 2 **25 Jun – 3 Jul 2027** (both Fri → Sat, 9 days / 8 nights). Still flagged tentative — a "Tentative" badge appears everywhere dates do, and the JSON-LD name/description say so. Flip `tentative` to `false` once the organisers sign off. | `batches[].start/end`, `batches[].tentative` |
 | 3 | **WhatsApp +91 81476 19141** | Taken from the brief and **not verified**. Every Register button opens WhatsApp with a pre-filled message until a registration URL exists. | `contact.whatsapp`, `links.register` |
 | 4 | **Logos** (ASC, Genex Space, SSERD) | **Missing.** The network policy blocked `astrospacecamp.com`, `astrospacecamp.pages.dev`, `sserd.org`, `genex.space` and `web.archive.org`, so nothing could be downloaded. The site shows text wordmarks; the ASC logo was *not* redesigned. | Drop files in `public/brand/` and set paths in the config (see `public/brand/README.txt`) |
 | 5 | **Camp photos** | **Missing**, for the same reason. 11 labelled "Photo slot" frames say "camp photo to be added". No stock or AI images were used. | `public/photos/` and `photos` in the config |
 | 6 | **Testimonials** | None found in any reachable source; the only one surfaced belonged to an unrelated London camp. The Crew section shows an invitation to share a story instead of quotes. | `testimonials` in the config |
 | 7 | **FAQ answers marked "To be confirmed"** | Supervision ratio, phone policy, medical support, refunds and the packing list are not in the brief, so they say "to be confirmed" and route to WhatsApp. **No ratio or policy was invented.** | `faq[].confirmed` |
 | 8 | **Register / Pay links, newsletter endpoint** | Placeholders (`null`). The newsletter form is shown disabled with an explanation. | `links` in the config |
-| 9 | **Day themes** | All nine show "Theme to be announced". | `itineraryThemes` |
-| 10 | **Aircraft activities** | Added on 5 Nov 2026 from the client ("we teach about rockets, satellites, airplanes as well"). The Aircraft card describes the *principles of flight* only and shows no activity chips, because no specific aviation activity (glider build, RC flight, simulator…) is known. | `disciplines[0].activities` |
-| 11 | **"Principles of flight & aircraft design" in highlights** | Added to the highlights list, which the page labels "from previous editions". Confirm that aircraft were taught in earlier camps, or remove it. | `highlights` |
+| 9 | ~~**Day themes**~~ | **Resolved 6 Nov 2026.** All nine days now carry a real theme plus the Advanced/Basic split, from the client's batch sheet. | `itinerary`, `tracks` |
+| 10 | ~~**Aircraft activities**~~ | **Resolved 6 Nov 2026.** The batch sheet names them: RC plane (Advanced) and chuck glider (Basic), both on day 5. Chips are now shown on the Aircraft card. | `disciplines[0].activities` |
+| 11 | ~~**Highlights labelled "from previous editions"**~~ | **Resolved 6 Nov 2026.** The highlights are now this edition's actual nine-day programme, so the list is labelled simply "Camp highlights" and the previous-editions claim is gone. | `highlights`, `missionLog` in `src/content/render.ts` |
 
 ## 2. Conflicts between the brief and research
 
@@ -32,9 +32,36 @@ None of these stopped the build. The brief's facts were used and the conflicts a
 - Past fees: ₹20,000 in 2022, ₹30–37k in 2025, ₹48–50k in 2026. Not shown, because 2027 fees are TBD.
 - Social links: only the Facebook page (`facebook.com/astrospacecamp.sserd`) was confirmed by search, so only that is listed.
 
+## 3b. Batch 1 kit costing — INTERNAL, do not publish
+
+From the client's batch sheet (6 Nov 2026). These are **cost of delivery per student**, not the camp fee.
+They are recorded here only; **nothing in `src/` reads them and no figure reaches the page or the
+schema.org data**. Publishing them would expose the margin between cost and fee (past fees were
+₹48–50k in 2026 — see §3).
+
+The sheet is dated 8–16 May 2026 (last edition's run). The **activities carried over unchanged**;
+only the dates were moved to the 2027 batches the client confirmed.
+
+| Day | Advanced | Per kit | Per student | Basic | Per kit | Per student |
+|-----|----------|--------:|------------:|-------|--------:|------------:|
+| 1 | Experience centre / field trip | ₹0 | ₹0 | Experience centre / field trip | ₹0 | ₹0 |
+| 2 | Astrophotography | ₹600 | ₹600 | Sky gazing / astronomical instruments | ₹500 | ₹500 |
+| 3 | Rest | — | — | Rest | — | — |
+| 4 | Astronaut | ₹2,125.00 | ₹2,125.00 | Astronaut | ₹2,125.00 | ₹2,125.00 |
+| 5 | RC plane | ₹5,727 | ₹1,431.75 | Chuck glider | ₹800 | ₹800 |
+| 6 | Meteorite hunting | ₹434.00 | ₹434.00 | Meteorite hunting | ₹434.00 | ₹434.00 |
+| 7 | Recovery rockets | ₹1,000.00 | ₹1,000.00 | C-class rockets | ₹600 | ₹600 |
+| 8 | Ground station | ₹1,500 | ₹1,500 | CubeSat | ₹2,565.36 | ₹1,282.68 |
+| 9 | Closing day | — | — | Closing day | — | — |
+| **Total per student** | | | **₹4,965.75** | | | **₹3,616.68** |
+
+Two figures in the sheet imply kit sharing rather than one kit per student: the RC plane
+(₹5,727 ÷ 4 = ₹1,431.75) and the CubeSat (₹2,565.36 ÷ 2 = ₹1,282.68). Worth confirming the
+intended group sizes before these numbers are used for pricing.
+
 ## 4. Assumptions I made
 - **Altitude labels in Subjects** are general reference figures, not from the research notes: airliner cruise ≈ 11 km (~35,000–40,000 ft); the Kármán line at 100 km (the FAI's boundary of space); low Earth orbit ≈ 400 km (the ISS's altitude); orbital speed in LEO ≈ 7.7 km/s, shown as "7–8 km every second". Edit them in `disciplines` if the team prefers other figures.
-- **"Night one" means 21:00 IST** on each batch's first date (`sky.nightOneTime`). Astronomical darkness begins about 19:44 in April and about 20:03 in June (computed).
+- **"Night one" means 21:00 IST** on each batch's first date (`sky.nightOneTime`) — 23 Apr 2027 and 25 Jun 2027. Astronomical darkness begins about 19:44 in late April and about 20:03 in late June (computed).
 - **The terrain silhouette is stylised.** The real campus horizon profile is unknown; the hills are procedural and labelled as such in code.
 - **Featured sky direction:** Batch 1 looks at 172° (Southern Cross and Centaurus); Batch 2 at 130° (the rising full Moon and Scorpius). Change with `batches[].skyViewAzimuth`.
 - **Moon drawn at 2× true size** so it reads on a phone; positions are true.

@@ -44,7 +44,7 @@ Open **`src/content/camp.config.ts`**. Every value is commented. Common edits:
 | WhatsApp | `contact.whatsapp` (digits only, with 91) and `contact.whatsappDisplay` | |
 | Stats | `stats` | e.g. `{ value: 2500, suffix: '+', label: 'students', note: '…' }` |
 | FAQ | `faq` | Set `confirmed: true` to remove the "To be confirmed" tag |
-| Day themes | `itineraryThemes` | Nine entries, `null` shows "Theme to be announced" |
+| Day themes & tracks | `itinerary`, `tracks` | Nine entries in order. `theme` is the shared headline; fill `advanced`/`basic` only on days the two tracks split, or leave both `null` for a shared day |
 | Hero subline | `heroSubline` | The one line under the headline saying what the camp teaches |
 | Subjects (aircraft, rockets, satellites, astronomy) | `disciplines`, `acrossSubjects` | Title, altitude label, one-liner, description, and `activities` chips (only list real activities) |
 | Testimonials | `testimonials` | Real quotes only; while empty, an invitation to share stories is shown |

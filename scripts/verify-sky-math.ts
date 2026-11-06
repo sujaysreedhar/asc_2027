@@ -20,9 +20,9 @@ const stars: Array<[string, number, number]> = [
 ]
 
 const instants = [
-  ['Batch 1 night one 21:00 IST', '2027-04-27', '21:00'],
-  ['Batch 2 night one 21:00 IST', '2027-06-20', '21:00'],
-  ['Batch 1 pre-dawn 04:30 IST', '2027-04-28', '04:30'],
+  ['Batch 1 night one 21:00 IST', '2027-04-23', '21:00'],
+  ['Batch 2 night one 21:00 IST', '2027-06-25', '21:00'],
+  ['Batch 1 pre-dawn 04:30 IST', '2027-04-24', '04:30'],
 ] as const
 
 const observer = new Astronomy.Observer(LAT, LON, 0)
