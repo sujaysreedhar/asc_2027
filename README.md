@@ -119,3 +119,5 @@ docs/screenshots/          ← delivery screenshots (desktop, mobile, fallbacks)
 
 ## Credits
 Stars: HYG database (CC BY-SA, astronexus). Constellation lines and Milky Way: d3-celestial (BSD-3, Olaf Frohn). Ephemeris: Astronomy Engine (MIT). Fonts: Anek Latin (Ek Type) and Inter, SIL OFL.
+
+The full notices, including the MIT licences for three.js and Lenis, are in [`public/credits.txt`](public/credits.txt), which the site serves at `/credits.txt`. No page links to it. Keep it current: see section 7 of [NOTES.md](NOTES.md).

@@ -120,8 +120,13 @@ Part of the cost is **real** on low-end phones, though: evaluating the three.js 
 - Ephemeris: Astronomy Engine, MIT (build time only).
 - Fonts: Anek Latin (Ek Type) and Inter, SIL OFL 1.1. Licences are in `public/fonts/`.
 
-The on-page credit line was removed from the footer on request (2026-11-06). HYG (CC BY-SA) and
-d3-celestial (BSD-3) both require attribution for the derived files the site ships, so that
-obligation now rests on this section and the README in the public repo. If the repo is ever made
-private, the attribution has to go back on the site, or into a `public/credits.txt` served at
-`/credits.txt`, before the next deploy.
+The on-page credit line was removed from the footer on request (2026-11-06). Attribution now
+lives in `public/credits.txt`, served at `/credits.txt` and linked from nowhere: no page shows
+it, but it travels with every deploy, so the CC BY-SA (HYG) and BSD-3 (d3-celestial) obligations
+are met whether or not this repo stays public. It also carries the MIT notices for three.js and
+Lenis, which ship inside the bundle and had never been credited anywhere.
+
+`credits.txt` is written by hand, so it goes stale quietly. Re-read it when a runtime dependency
+changes version in `package.json`, or when `scripts/build-sky-data.mjs` changes where the sky
+data comes from. The BSD-3 text in it is copied from `scripts/data/d3-celestial-LICENSE.txt`,
+which matches upstream as of 2026-11-06.
